@@ -2,7 +2,7 @@ EXE = conv_engine
 OBJ = main.o option.o
 
 UTEST = unit_test
-UTEST_OBJ = test.o option.o rgbapixel.o png.o depth.o
+UTEST_OBJ = test.o option.o rgbapixel.o png.o depth.o kernel.o
 
 CXX = g++
 LDX = g++
@@ -29,6 +29,9 @@ option.o : option.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 depth.o : depth.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+kernel.o : kernel.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 png.o : png.cpp png.h
