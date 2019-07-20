@@ -31,6 +31,14 @@
 *.out
 *.app
 
+# vim
+.*.swp
+
 # dofe
 src/conv_engine
+src/unit_test
+src/test/*
 sequence/*
+temp/*
+*.csv
+cscope.*
