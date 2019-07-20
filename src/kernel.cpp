@@ -10,6 +10,7 @@ Kernel::Kernel()
     multiplier[4] = 16;
 }
 
+
 Kernel::Kernel(std::vector<int>mults)
 {
     //check if vector is a sqaure
@@ -36,35 +37,35 @@ Kernel::Kernel(Kernel &ker)
     
     for(int i = 0; i < size; i++)
     {
-        multiplier[i] = ker[i]
+        multiplier[i] = ker[i];
     }
 }
 
-Kernel::Kernel operator = (Kernel &ker)
+Kernel& Kernel::operator = (Kernel &ker)
 {
     int size = ker.getSize();
-    Kernel.multiplier.resize(size);
-    
+    this->resizeKer(size);
     for(int i = 0; i < size; i++)
     {
-        Kernel.multiplier[i] = ker[i];
+        this->multiplier[i] = ker[i];
     }
+    return *this;
 }
 
 
-Kernel::Kernel operator [] (int index)
+int Kernel::operator [] (int index)
 {
-    if (index >= self.multiplier.size())
-    {
-        std::cout<<"Index is out of the range of the kernel";
-    }
-    else
-        return self.multiplier[index];
+    return multiplier[index];
 }
 
 int Kernel::getSize()
 {
     return multiplier.size();
+}
+
+void Kernel::resizeKer(int n)
+{
+    multiplier.resize(n);
 }
 
 bool testSqrt(int n)

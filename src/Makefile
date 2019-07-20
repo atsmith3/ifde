@@ -2,7 +2,7 @@ EXE = conv_engine
 OBJ = main.o png.o rgbapixel.o option.o kernel.o convolution.o
 
 UTEST = unit_test
-UTEST_OBJ = test.o option.o
+UTEST_OBJ = test.o option.o kernel.o
 
 CXX = g++
 LDX = g++
@@ -26,6 +26,9 @@ test.o : test.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 option.o : option.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
+kernel.o : kernel.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 png.o : png.cpp png.h
