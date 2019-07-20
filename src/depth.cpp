@@ -61,9 +61,9 @@ namespace Utility {
           depth = sum/total;
         }
         csv << depth << ",";
-        csv << original(x,y)->red << ",";
-        csv << original(x,y)->green << ",";
-        csv << original(x,y)->blue << ",";
+        csv << (int)original(x,y)->red << ",";
+        csv << (int)original(x,y)->green << ",";
+        csv << (int)original(x,y)->blue << ",";
         csv << "\n";
       }
     }

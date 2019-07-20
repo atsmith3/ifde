@@ -37,5 +37,6 @@
 # dofe
 src/conv_engine
 src/unit_test
+src/test/*
 sequence/*
 cscope.*

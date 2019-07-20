@@ -7,14 +7,12 @@ namespace Image {
   void convolve(PNG& input, PNG& output) {
     Kernel edgeDetection;
     
-    int red = 0;
-    int blue = 0;
-    int green = 0;
 
     uint8_t average = 0;
 
     for(size_t x = 0; x < input.width(); x++) {
       for(size_t y = 0; y < input.height(); y++) {
+        int red = 0;
         // Ignore outer row of pixels:
         if(x == 0 || y == 0 || x == input.width() - 1 || y == input.height() - 1) {
           // Set pixels to black:
@@ -25,21 +23,21 @@ namespace Image {
         else {
           for(uint8_t i = 0; i < 3; i++) {
             for(uint8_t j = 0; j < 3; j++) {
-              red   += edgeDetection[j*3 + i]*input(x - 1 + i, y - 1 + j)->red;
-              green += edgeDetection[j*3 + i]*input(x - 1 + i, y - 1 + j)->green;
-              blue  += edgeDetection[j*3 + i]*input(x - 1 + i, y - 1 + j)->blue;
+              red   += edgeDetection[j*3 + i]*(int)input(x - 1 + i, y - 1 + j)->red;
             }
           }
 
-          if((red + green + blue)/3 > 150) {
+          if(red > 255) {
             average = 255;
           }
-          else if((red + green + blue)/3 < 0) {
+          else if (red < 0) {
             average = 0;
           }
           else {
-            average = (size_t)((red + green + blue)/3);
+            average = (size_t)(red);
           }
+
+          //std::cout << x << " " << y << " " << (int)average << " " << red << "\n";
           
           output(x,y)->red = average;
           output(x,y)->green = average;
