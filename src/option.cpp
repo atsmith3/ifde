@@ -5,10 +5,11 @@ namespace Utility {
   namespace po = boost::program_options;
 
   Options::Options() {
-    std::string input_filelist = "";
-    std::string intermediate_dir = "";
-    std::string output_file = "";
+    std::string sequence = "";
+    std::string intermediate = "";
+    std::string output = "";
     int threshold = 0;
+    int images = 0;
   }
 
   Options::~Options() {
@@ -23,14 +24,15 @@ namespace Utility {
 
     po::options_description io_opt("File IO options");
     io_opt.add_options()
-      ("file_list", po::value<std::string>(&input_filelist), "path to list of input files")
-      ("intermediate_dir", po::value<std::string>(&intermediate_dir), "path to folder to store intermediate output")
-      ("output_file", po::value<std::string>(&output_file), "path to folder to store intermediate output")
+      ("sequence", po::value<std::string>(&sequence), "path to folder to the input sequence")
+      ("intermediate", po::value<std::string>(&intermediate), "path to folder to store intermediate output")
+      ("output", po::value<std::string>(&output), "output file name")
     ;
 
     po::options_description conv_opt("Convolution Options");
     conv_opt.add_options()
       ("threshold", po::value<int>(&threshold), "threshold to accept a pixel")
+      ("images", po::value<int>(&images), "number of images in the sequence")
     ;
 
     po::options_description all_options;
