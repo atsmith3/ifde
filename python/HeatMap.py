@@ -29,4 +29,7 @@ narray = df.to_numpy()
 
 heat = plt.imshow(narray, cmap='Spectral', interpolation='nearest')
 plt.colorbar(heat)
+plt.xticks([])
+plt.yticks([])
+#plt.savefig('heatmap.eps', format='eps', dpi=1000)
 plt.show()
