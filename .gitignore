@@ -34,3 +34,4 @@
 # dofe
 src/conv_engine
 sequence/*
+*.cscope
