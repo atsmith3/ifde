@@ -5,9 +5,7 @@ import pandas as pd
 
 #Get inputs
 pathToCsv = sys.argv[1]
-height = int(sys.argv[2])
-w = int(sys.argv[3])
-depths = int(sys.argv[4])
+w = int(sys.argv[2])
 
 width = w
 count = 1
@@ -27,9 +25,8 @@ with open(path, 'r') as f:
             count=count+1
             
 df = pd.DataFrame(data)
-df = df.transpose()
 narray = df.to_numpy()
 
-heat = plt.imshow(narray, cmap='OrRd', interpolation='nearest')
+heat = plt.imshow(narray, cmap='Spectral', interpolation='nearest')
 plt.colorbar(heat)
 plt.show()
