@@ -1,5 +1,5 @@
-#ifndef MAESTRO_OPTION_H_
-#define MAESTRO_OPTION_H_
+#ifndef UTILITY_OPTION_H_
+#define UTILITY_OPTION_H_
 
 #include <iostream>
 #include <string>
@@ -7,10 +7,11 @@
 namespace Utility {
   class Options {
     public:
-      std::string input_filelist;
-      std::string intermediate_dir;
-      std::string output_file;
+      std::string sequence;
+      std::string intermediate;
+      std::string output;
       int threshold;
+      int images;
 
       Options();
       ~Options();
