@@ -4,53 +4,62 @@
 
 #include <iostream>
 #include <string>
-//#include "png.h"
+#include "png.h"
 #include "option.h"
+#include "depth.h"
+#include "convolution.h"
 #include <chrono>
 
 int main(int argc, char** argv) {
   // Parse Arguments:
   Utility::Options opt;
   opt.parse(argc, argv);
+  
+  char buff[100];
 
   // Timer Vars:
   std::chrono::high_resolution_clock::time_point t0, t1;
 
   // Get the input PNG:
-//  PNG* input = new PNG;
-//  PNG* conv_result = new PNG;
-//  PNG* thresh_result = new PNG;
+  PNG* original = new PNG(opt.original);
+  Utility::PixelDepth* data = new Utility::PixelDepth(original->width(), original->height(), opt.images);
 
   // Main Loop
-  for(int image_num = 0; image_num < opt.images; image_num++) {
-    char buff[100];
+  for(int image_num = 1; image_num <= opt.images; image_num++) {
+    // Start the timer:
+    t0 = std::chrono::high_resolution_clock::now();
     snprintf(buff, sizeof(buff), "%03d.png", image_num);
     std::string file_name = buff;
-    std::cout << file_name + "\n";
-//    input->readFromFile(opt.sequence + "/" + );
-//    output->resize(input->width(), input->height());
-//    
-//    // Start the timer:
-//    t0 = std::chrono::high_resolution_clock::now();
-//    
-//    if(convolveSerial(*input, *output) == true) {
-//        std::cout << "First Pass Complete\n";
-//    }
-//
-//    // End the timer:
-//    t1 = std::chrono::high_resolution_clock::now();
-//
-//    // Print the duration:
-//    auto real_runtime = std::chrono::duration<double, typename std::chrono::high_resolution_clock::period>(t1 - t0);
-//    std::cout << "The convolution runtime is " << (double)(std::chrono::duration_cast<std::chrono::nanoseconds>(real_runtime).count()/1000000000.0) << " seconds\n";
-//
-//    // Write the png to the file:
-//    output->writeToFile("output.png");
+
+    // Load the new Image
+    PNG* input = new PNG(opt.sequence + "/" + file_name);
+    PNG* conv = new PNG(input->width(), input->height());
+    PNG* thresh = new PNG(input->width(), input->height());
+
+    // Run the Core
+    Image::convolve(*input, *conv);
+    Image::threshold(*conv, *thresh, opt.threshold);
+    Image::add(*thresh, *data, image_num);
+
+    // Write the Intermediate Files
+    conv->writeToFile(opt.intermediate + "/conv" + file_name);
+    thresh->writeToFile(opt.intermediate + "/thresh" + file_name);
+
+    // Free Images
+    delete input;
+    delete conv;
+    delete thresh;
+
+    // End the timer:
+    t1 = std::chrono::high_resolution_clock::now();
+    auto real_runtime = std::chrono::duration<double, typename std::chrono::high_resolution_clock::period>(t1 - t0);
+    std::cout << file_name + " time: " << (double)(std::chrono::duration_cast<std::chrono::nanoseconds>(real_runtime).count()/1000000000.0) << " seconds\n";
   }
   
+  data->write_output(opt.output, *original);
+
   // Free Memory:
-//  delete input;
-//  delete output;
+  delete original;
   
   return 0;
 } 

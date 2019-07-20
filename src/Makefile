@@ -1,5 +1,5 @@
 EXE = conv_engine
-OBJ = main.o option.o
+OBJ = main.o option.o convolution.o rgbapixel.o png.o depth.o kernel.o 
 
 UTEST = unit_test
 UTEST_OBJ = test.o option.o convolution.o rgbapixel.o png.o depth.o kernel.o 

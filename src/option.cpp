@@ -5,6 +5,7 @@ namespace Utility {
   namespace po = boost::program_options;
 
   Options::Options() {
+    std::string original = "";
     std::string sequence = "";
     std::string intermediate = "";
     std::string output = "";
@@ -24,6 +25,7 @@ namespace Utility {
 
     po::options_description io_opt("File IO options");
     io_opt.add_options()
+      ("original", po::value<std::string>(&original), "path to original color image")
       ("sequence", po::value<std::string>(&sequence), "path to folder to the input sequence")
       ("intermediate", po::value<std::string>(&intermediate), "path to folder to store intermediate output")
       ("output", po::value<std::string>(&output), "output file name")

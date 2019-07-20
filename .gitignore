@@ -39,4 +39,6 @@ src/conv_engine
 src/unit_test
 src/test/*
 sequence/*
+temp/*
+*.csv
 cscope.*

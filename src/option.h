@@ -7,6 +7,7 @@
 namespace Utility {
   class Options {
     public:
+      std::string original;
       std::string sequence;
       std::string intermediate;
       std::string output;
