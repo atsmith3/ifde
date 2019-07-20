@@ -38,4 +38,4 @@
 src/conv_engine
 src/unit_test
 sequence/*
-*.cscope
+cscope.*
