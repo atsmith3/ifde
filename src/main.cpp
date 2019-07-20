@@ -136,44 +136,19 @@ int main(int argc, char* argv[]) {
     input->readFromFile("in.png");
     output->resize(input->width(), input->height());
     
-    // If parallel is specified:
-    if(argc == 2) {
-        if(std::strcmp("parallel", argv[1]) == 0) {
-            std::cout << "Parallel Enabled\n";
-
-            // Start the timer: 
-            t0 = std::chrono::high_resolution_clock::now();
-
-            if(convolveParallel(*input, *output) == true) {
-                std::cout<< "First Pass Complete\n";
-            }
-            
-            // End the timer:
-            t1 = std::chrono::high_resolution_clock::now();
-
-            // Print the duration:
-            auto real_runtime = std::chrono::duration<double, typename std::chrono::high_resolution_clock::period>(t1 - t0);
-            std::cout << "The convolution runtime is " << (double)(std::chrono::duration_cast<std::chrono::nanoseconds>(real_runtime).count()/1000000000.0) << " seconds\n";
-        }
+    // Start the timer:
+    t0 = std::chrono::high_resolution_clock::now();
+    
+    if(convolveSerial(*input, *output) == true) {
+        std::cout << "First Pass Complete\n";
     }
-    // Else run in serial:
-    else {
-        std::cout << "Parallel Disabled\n";
-        
-        // Start the timer:
-        t0 = std::chrono::high_resolution_clock::now();
-        
-        if(convolveSerial(*input, *output) == true) {
-            std::cout << "First Pass Complete\n";
-        }
 
-        // End the timer:
-        t1 = std::chrono::high_resolution_clock::now();
+    // End the timer:
+    t1 = std::chrono::high_resolution_clock::now();
 
-        // Print the duration:
-        auto real_runtime = std::chrono::duration<double, typename std::chrono::high_resolution_clock::period>(t1 - t0);
-        std::cout << "The convolution runtime is " << (double)(std::chrono::duration_cast<std::chrono::nanoseconds>(real_runtime).count()/1000000000.0) << " seconds\n";
-    }
+    // Print the duration:
+    auto real_runtime = std::chrono::duration<double, typename std::chrono::high_resolution_clock::period>(t1 - t0);
+    std::cout << "The convolution runtime is " << (double)(std::chrono::duration_cast<std::chrono::nanoseconds>(real_runtime).count()/1000000000.0) << " seconds\n";
 
     // Write the png to the file:
     output->writeToFile("output.png");

@@ -31,7 +31,11 @@
 *.out
 *.app
 
+# vim
+.*.swp
+
 # dofe
 src/conv_engine
+src/unit_test
 sequence/*
 *.cscope
