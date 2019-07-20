@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# dofe
+src/conv_engine
+sequence/*
