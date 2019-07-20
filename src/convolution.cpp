@@ -1,12 +1,11 @@
-
+#include "convolution.h"
 #include "rgbapixel.h"
-
+#include "kernel.h"
 
 namespace Image {
 
   void convolve(PNG& input, PNG& output) {
-    // Edge Detection:
-    int edgeDetection[9] = {-2,-2,-2,-2,16,-2,-2,-2,-2};
+    Kernel edgeDetection;
     
     int red = 0;
     int blue = 0;
@@ -14,8 +13,8 @@ namespace Image {
 
     uint8_t average = 0;
 
-    for(int x = 0; x < input.width(); x++) {
-      for(int y = 0; y < input.height(); y++) {
+    for(size_t x = 0; x < input.width(); x++) {
+      for(size_t y = 0; y < input.height(); y++) {
         // Ignore outer row of pixels:
         if(x == 0 || y == 0 || x == input.width() - 1 || y == input.height() - 1) {
           // Set pixels to black:
@@ -51,7 +50,30 @@ namespace Image {
   }
   
   void threshold(PNG& input, PNG& output, int threshold) {
-    // TODO: Remove pixels that are below the threshold
-    return output;
+    for(size_t i = 0; i < input.width(); i++) {
+      for(size_t j = 0; j < input.height(); j++) {
+        if(input(i,j)->red > threshold) {
+          output(i,j)->red = 255;
+          output(i,j)->green = 255;
+          output(i,j)->blue = 255;
+        }
+        else {
+          output(i,j)->red = 0;
+          output(i,j)->green = 0;
+          output(i,j)->blue = 0;
+        }
+      }
+    }
+    return;
   }
+	
+  void add(PNG& input, Utility::PixelDepth& data, int depth) {
+    for(size_t i = 0; i < input.width(); i++) {
+      for(size_t j = 0; j < input.height(); j++) {
+        if(input(i,j)->red > 0) data.set_depth(i, j, depth);
+      }
+    }
+    return;
+  }
+
 }
