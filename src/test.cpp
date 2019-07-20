@@ -1,5 +1,6 @@
 #include <iostream>
 #include "option.h"
+#include "depth.h"
 
 int main(int argc, char** argv) {
   Utility::Options opt;
@@ -12,10 +13,14 @@ int main(int argc, char** argv) {
 
   std::cout << "Arguments\n";
   std::cout << "-------------------------------------------\n";
-  std::cout << "input_filelist: " << opt.input_filelist << "\n"; 
-  std::cout << "intermediate_dir: " << opt.intermediate_dir << "\n"; 
-  std::cout << "output_file: " << opt.output_file << "\n"; 
-  std::cout << "threshold: " << opt.threshold << "\n"; 
+  std::cout << "\n";
+
+  std::cout << "Depth\n";
+  std::cout << "-------------------------------------------\n";
+  Utility::PixelDepth data(4,5,6);
+  data.set_depth(1,2,3);
+  data.write_debug("unit_test.csv");
+  std::cout << "\n";
 
   return 1;
 }
