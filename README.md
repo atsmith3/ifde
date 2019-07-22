@@ -4,6 +4,8 @@ Project for the Qualcomm Hackmobile Intern event. The project takes in a set of 
 
 The data is then visualized in Open3D (Point Cloud) and MatPlotLib (Heat Map).
 
+[Here is a video of the algorithm](https://youtu.be/GV-ZU503jAc)
+
 ## Build
 Requirements (C++):
 * [clang](https://clang.llvm.org/) - Compiler
